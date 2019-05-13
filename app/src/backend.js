@@ -10,7 +10,7 @@ class Backend {
     this.contractRead = null
     this.contractWrite = null
 
-    let addr = AddrConfig['AskJianYu']
+    let addr = AddrConfig.AskJianYu
     let abi = AskJianYu.abi
     if (this.web3) {
       this.contractRead = this.web3.eth.Contract(abi, addr)
@@ -18,15 +18,6 @@ class Backend {
     if (this.wallet) {
       this.contractWrite = this.wallet.eth.Contract(abi, addr)
     }
-  }
-
-  async getQuoteEventAndListen(handler) {
-    let block = await this.web3.eth.getBlockNumber()
-    let events = await this.contractRead.getPastEvents(
-      'Quote',
-      { fromBlock: 0, toBlock: block })
-    handler(events) 
-    this.contractRead.events.Quote({ fromBlock: block + 1 }).on('data', (event) => handler([event]))
   }
 
   /*
@@ -86,6 +77,22 @@ class Backend {
     // TODO: distinct event
     console.error('quoteEvent', quoteEvent)
     console.error('dissEvent', dissEvent)
+  }
+
+  async getQuoteEventAndListen(handler) {
+    let block = await this.web3.eth.getBlockNumber()
+    let events = await this.contractRead.getPastEvents(
+      'Quote',
+      { fromBlock: 0, toBlock: block })
+    handler(events)
+    this.contractRead.events.Quote({ fromBlock: block + 1 })
+      .on('data', (event) => handler([event]))
+  }
+
+  async listenDissEvent(handler) {
+    let block = await this.web3.eth.getBlockNumber()
+    this.contractRead.events.Diss({ fromBlock: block + 1 })
+      .on('data', (event) => handler([event]))
   }
 }
 

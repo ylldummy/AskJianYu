@@ -32,6 +32,12 @@ let renderListArea = (container, events) => {
   })
 }
 
+let showDissEvents = (events) => {
+  events.forEach((event) => {
+    alert(event.returnValues.msg)
+  })
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   backend = await Backend()
   if (!backend) {
@@ -49,5 +55,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   renderInputArea(inputArea)
 
-  backend.getQuoteEventAndListen((events) => renderListArea(listArea, events))
+  backend.getQuoteEventAndListen(renderListArea.bind(this, listArea))
+  backend.listenDissEvent(showDissEvents)
 })
