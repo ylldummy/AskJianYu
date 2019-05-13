@@ -20,6 +20,7 @@ let renderInputArea = (container) => {
 
   submitBtn.addEventListener('click', async () => {
     await backend.contribute(indexInput.value, valueInput.value)
+    alert('submit success')
   })
 }
 
