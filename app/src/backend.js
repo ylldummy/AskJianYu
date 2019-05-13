@@ -3,6 +3,8 @@ import AddrConfig from '%/config'
 import config from '@/config'
 import AskJianYu from '#/AskJianYu'
 
+import { sleep } from '@/utils'
+
 class Backend {
   constructor(web3, wallet) {
     this.web3 = web3
