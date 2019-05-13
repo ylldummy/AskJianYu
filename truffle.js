@@ -11,7 +11,7 @@
  *     gasPrice: 10000000000,
  *   },
  */
-const HDWalletProvider = require("truffle-hdwallet-provider");
+const HDWalletProvider = require("@dexon-foundation/truffle-hdwallet-provider");
 
 // Define default secret which is not a secret.
 const privKey = "";
