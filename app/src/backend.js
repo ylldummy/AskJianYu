@@ -67,11 +67,15 @@ class Backend {
 
   async contribute(idx, value) {
     let accounts = await this.wallet.eth.getAccounts()
+    let gas = await this.contractWrite.methods
+      .contribute(idx)
+      .estimateGas({ from: accounts[0] })
     let ep = this.contractWrite.methods
       .contribute(idx)
       .send({
         from: accounts[0],
         value: this.web3.utils.toWei(value, 'ether'),
+        gas,
       })
     let receipt = await this.waitReceipt(ep)
     let dissEvent = this.decodeEvent(this.contractWrite, 'Diss', receipt)
