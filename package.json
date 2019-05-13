@@ -1,5 +1,5 @@
 {
-  "name": "jianyuquote",
+  "name": "askjianyu",
   "version": "0.0.1",
   "description": "Decentralized JianYu",
   "main": "truffle-config.js",
@@ -7,12 +7,18 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "dist=./build dexon-truffle test --network development",
+    "ganache": "dexon-ganache-cli -e 100000",
+    "dev": "dist=./build dexon-truffle migrate",
+    "prod": "dist=./dist dexon-truffle migrate"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@dexon-foundation/ganache-cli": "^6.2.5",
     "@dexon-foundation/truffle": "^5.0.16",
-    "openzeppelin-solidity": "^2.2.0"
+    "openzeppelin-solidity": "^2.2.0",
+    "shelljs": "^0.8.3",
+    "truffle-hdwallet-provider": "^1.0.9"
   }
 }
