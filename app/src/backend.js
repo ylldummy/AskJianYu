@@ -70,6 +70,7 @@ class Backend {
     let gas = await this.contractWrite.methods
       .contribute(idx)
       .estimateGas({ from: accounts[0] })
+    gas = gas * 2
     let ep = this.contractWrite.methods
       .contribute(idx)
       .send({
