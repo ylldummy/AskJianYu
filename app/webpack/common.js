@@ -25,7 +25,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'AskJianYu',
-      favicon: path.resolve(ASSETS_DIR, 'favicon.ico'),
+      //favicon: path.resolve(ASSETS_DIR, 'favicon.ico'),
       meta: {
         description: 'Ask Jian Yu',
         viewport: 'width=device-width, initial-scale=1.0',
