@@ -7,6 +7,7 @@
     "dev": "webpack-dev-server --hot --host 0.0.0.0 --config webpack/dev.js",
     "devprod": "webpack-dev-server --hot --host 0.0.0.0 --config webpack/devprod.js",
     "build": "webpack --config webpack/prod.js",
+    "postbuild": "touch dist/.nojekyll",
     "publish": "npm run build && gh-pages -d dist -m \"Automated deployment to GitHub Pages: Test\" -t",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
