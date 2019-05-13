@@ -63,29 +63,27 @@ class Backend {
     return this.decodeEvent(contract, name, receipt)
   }
 
-  async sendMsg(msg, value) {
+  async contribute(idx, value) {
     let accounts = await this.wallet.eth.getAccounts()
     let ep = this.contractWrite.methods
-      .tribute(msg)
+      .contribute(idx)
       .send({
         from: accounts[0],
         value: this.web3.utils.toWei(value, 'ether'),
       })
     let receipt = await this.waitReceipt(ep)
-    let quoteEvent = this.decodeEvent(this.contractWrite, 'Quote', receipt)
     let dissEvent = this.decodeEvent(this.contractWrite, 'Diss', receipt)
-    // TODO: distinct event
-    console.error('quoteEvent', quoteEvent)
+    // TODO: handle event?
     console.error('dissEvent', dissEvent)
   }
 
   async getQuoteEventAndListen(handler) {
     let block = await this.web3.eth.getBlockNumber()
     let events = await this.contractRead.getPastEvents(
-      'Quote',
+      'NewQuote',
       { fromBlock: 0, toBlock: block })
     handler(events)
-    this.contractRead.events.Quote({ fromBlock: block + 1 })
+    this.contractRead.events.NewQuote({ fromBlock: block + 1 })
       .on('data', (event) => handler([event]))
   }
 

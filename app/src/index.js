@@ -3,31 +3,37 @@ import './index.css'
 import Backend from './backend'
 
 let backend
+let quoteIdx = 0
 
 let renderInputArea = (container) => {
   container.innerHTML = [
-    `<label for="msg-input">Msg:</label>`,
-    `<input type="text" id="msg-input" />`,
+    `<label for="index-input">Index:</label>`,
+    `<input type="number" id="index-input" />`,
     `<label for="value-input">Value:</label>`,
     `<input type="number" id="value-input" />`,
     `<button class="submit-btn">submit</button>`
   ].join('')
 
-  let msgInput = container.querySelector('#msg-input')
+  let indexInput = container.querySelector('#index-input')
   let valueInput = container.querySelector('#value-input')
   let submitBtn = container.querySelector('.submit-btn')
 
   submitBtn.addEventListener('click', async () => {
-    await backend.sendMsg(msgInput.value, valueInput.value)
+    await backend.contribute(indexInput.value, valueInput.value)
   })
 }
 
-let renderListArea = (container, events) => {
+let renderListArea = (container, indexInput, events) => {
   events.forEach((event) => {
     let text = document.createTextNode(event.returnValues.quote)
     let div = document.createElement('div')
-    div.classList.add('list-item')
     div.appendChild(text)
+    div.classList.add('list-item')
+    div.dataset.idx = quoteIdx
+    div.addEventListener('click', () => {
+      indexInput.value = div.dataset.idx
+    })
+    ++quoteIdx
     container.appendChild(div)
   })
 }
@@ -54,7 +60,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   let inputArea = div.querySelector('.input-area')
 
   renderInputArea(inputArea)
+  let indexInput = inputArea.querySelector('#index-input')
 
-  backend.getQuoteEventAndListen(renderListArea.bind(this, listArea))
+  backend.getQuoteEventAndListen(
+    renderListArea.bind(this, listArea, indexInput))
   backend.listenDissEvent(showDissEvents)
 })
