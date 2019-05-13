@@ -11,6 +11,7 @@ let renderInputArea = (container) => {
     `<input type="number" id="index-input" />`,
     `<label for="value-input">Value:</label>`,
     `<input type="number" id="value-input" />`,
+    `<label for="value-input">DXN</label>`,
     `<button class="submit-btn">submit</button>`
   ].join('')
 
@@ -41,7 +42,7 @@ let renderListArea = (container, indexInput, events) => {
 
 let renderInfoArea = (container, info) => {
   container.innerHTML = [
-    `<div>Saisen Threshold: ${info.saisenThreshold}</div>`
+    `<div>Saisen Threshold: ${info.saisenThreshold} DXN</div>`
   ].join('')
 }
 
