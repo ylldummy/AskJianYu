@@ -23,7 +23,8 @@ module.exports = async function(deployer, network) {
     '這就是有錢的力量',
     '當你放棄權利的時候就是被侵犯的時候',
     '我連你是誰都不知道',
-    '我都喝咖啡治療感冒'
+    '我都喝咖啡治療感冒',
+    '你們的熱情就這樣而已嗎'
   ]
   await Promise.all(initQuote.map((quote) => {
     return contract.addQuote(quote)
