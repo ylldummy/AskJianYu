@@ -99,6 +99,12 @@ class Backend {
     this.contractRead.events.Diss({ fromBlock: block + 1 })
       .on('data', (event) => handler([event]))
   }
+
+  async getSaisenThreshold() {
+    let threshold = await this.contractRead.methods
+      .saisenThreshold().call()
+    return this.web3.utils.fromWei(threshold.toString(), 'ether')
+  }
 }
 
 export default async () => {

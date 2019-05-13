@@ -39,6 +39,12 @@ let renderListArea = (container, indexInput, events) => {
   })
 }
 
+let renderInfoArea = (container, info) => {
+  container.innerHTML = [
+    `<div>Saisen Threshold: ${info.saisenThreshold}</div>`
+  ].join('')
+}
+
 let showDissEvents = (events) => {
   events.forEach((event) => {
     alert(event.returnValues.msg)
@@ -54,11 +60,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.body.appendChild(div)
   div.innerHTML = [
     `<div class="list-area"></div>`,
+    `<div class="info-area"></div>`,
     `<div class="input-area"></div>`
   ].join('')
 
   let listArea = div.querySelector('.list-area')
   let inputArea = div.querySelector('.input-area')
+  let infoArea = div.querySelector('.info-area')
 
   renderInputArea(inputArea)
   let indexInput = inputArea.querySelector('#index-input')
@@ -66,4 +74,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   backend.getQuoteEventAndListen(
     renderListArea.bind(this, listArea, indexInput))
   backend.listenDissEvent(showDissEvents)
+
+  let saisenThreshold = await backend.getSaisenThreshold()
+  renderInfoArea(infoArea, { saisenThreshold })
 })
