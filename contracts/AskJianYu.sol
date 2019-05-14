@@ -74,7 +74,7 @@ contract AskJianYu is Ownable {
 
   function _voteQuote(uint256 idx, uint256 value) internal {
     require(idx < quote.length);
-    quote[idx].weight.add(value);
+    quote[idx].weight = quote[idx].weight.add(value);
     totalWeight = totalWeight.add(value);
     // Pay royalty to boss.
     boss.transfer(value/10);
