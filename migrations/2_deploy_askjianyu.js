@@ -9,9 +9,15 @@ let CONTRACT_NAME = 'AskJianYu';
 let CONFIG_PATH = path.resolve(truffle.config_build_directory, 'config.json')
 let JY_ADDR = '0x21E3C42b7D0ED6BC583a82331410948512A2C466'
 
+async function runContract(fn, ...args) {
+  let ge = await fn.estimateGas(...args);
+  return fn(...args, {gas: ge});
+}
+
 module.exports = async function(deployer, network) {
   let config = {}
-  let contract = await AskJianYu.new(web3.utils.toWei('1', 'ether'), JY_ADDR)
+  let contract = await runContract(AskJianYu.new,
+		web3.utils.toWei('0.1', 'ether'), JY_ADDR)
   console.log('contract deployed, address =', contract.address)
   let initQuote = [
     '綠皮藍骨',
@@ -24,10 +30,12 @@ module.exports = async function(deployer, network) {
     '當你放棄權利的時候就是被侵犯的時候',
     '我連你是誰都不知道',
     '我都喝咖啡治療感冒',
-    '你們的熱情就這樣而已嗎'
+    '你們的熱情就這樣而已嗎',
+    '你再兇也沒幾天了',
+    '我們的友誼就到此為止了'
   ]
   await Promise.all(initQuote.map((quote) => {
-    return contract.addQuote(quote)
+    return runContract(contract.addQuote, quote)
   }))
   config[CONTRACT_NAME] = contract.address
 
