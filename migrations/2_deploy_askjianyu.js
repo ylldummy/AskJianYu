@@ -32,7 +32,8 @@ module.exports = async function(deployer, network) {
     '我都喝咖啡治療感冒',
     '你們的熱情就這樣而已嗎',
     '你再兇也沒幾天了',
-    '我們的友誼就到此為止了'
+    '我們的友誼就到此為止了',
+    '沒有寫題目的人沒有資格吃飯'
   ]
   await Promise.all(initQuote.map((quote) => {
     return runContract(contract.addQuote, quote)
