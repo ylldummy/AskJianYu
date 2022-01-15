@@ -21,7 +21,7 @@
     "@dexon-foundation/ganache-cli": "^6.2.5",
     "@dexon-foundation/truffle": "^5.0.16",
     "@dexon-foundation/truffle-hdwallet-provider": "^1.0.12",
-    "shelljs": "^0.8.3",
+    "shelljs": "^0.8.5",
     "web3-utils": "^1.0.0-beta.55"
   }
 }
